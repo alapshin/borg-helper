@@ -1,0 +1,2 @@
+patterns.txt filter=git-crypt diff=git-crypt
+repository.cfg filter=git-crypt diff=git-crypt

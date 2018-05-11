@@ -1,0 +1,5 @@
+#!/bin/bash
+
+export BORG_REPO='0000@example.rsync.net:borgrepo'
+export BORG_PASSPHRASE='CorrectBatteryHorseStaple'
+export BORG_REMOTE_PATH='/usr/local/bin/borg1'

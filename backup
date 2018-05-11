@@ -1,0 +1,34 @@
+#!/bin/bash
+
+set -o errexit
+set -o nounset
+set -o pipefail
+
+source ./backup.cfg
+source ./repository.cfg
+
+# Create backup
+# See https://borgbackup.readthedocs.org/en/stable/usage.html#borg-create
+# for details
+borg create \
+    --stats \
+    --progress \
+    --compression ${COMPRESSION} \
+    --patterns-from ${PATTERNS_FILE} \
+    ::${ARCHIVE}
+
+# Prune old backups 
+# See https://borgbackup.readthedocs.org/en/stable/usage.html#borg-prune
+# for details
+borg prune \
+    --stats \
+    --keep-daily=${KEEP_DAILY} \
+    --keep-weekly=${KEEP_WEEKLY} \
+    --keep-monthly=${KEEP_MONTHLY} \
+    --keep-yearly=${KEEP_YEARLY}
+
+# Verify backups consistency
+# See https://borgbackup.readthedocs.io/en/stable/usage.html#borg-check
+# for details
+borg check \
+    --last ${CHECK_LAST}
